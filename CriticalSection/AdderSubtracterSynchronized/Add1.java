@@ -6,10 +6,10 @@ public class Add1 implements Runnable{
     }
     @Override
     public void run() {
-        for(int i=0;i<=10000000;i++){
-         //   synchronized (count){
+        for(int i=0;i<=100000000;i++){
+            synchronized (count){
                 count.value= count.value+i;
-         //   }
+            }
         }
     }
 }

@@ -1,5 +1,8 @@
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class NewClient {
 
@@ -7,8 +10,10 @@ public class NewClient {
 
     public static void main() {
         NewCount count= new NewCount();
-        NewSubtracter sub= new NewSubtracter(count);
-        NewAdder add= new NewAdder(count);
+        Lock lock = new ReentrantLock();
+
+        NewSubtracter sub= new NewSubtracter(count,lock);
+        NewAdder add= new NewAdder(count,lock);
         ExecutorService exe= Executors.newCachedThreadPool();
         exe.submit(add);
         exe.submit(sub);
